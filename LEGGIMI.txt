@@ -1,0 +1,44 @@
+RADICAMENTO — sito del rito (HTML · CSS · JavaScript)
+
+STRUTTURA
+  index.html          pagina unica dell'app
+  style.css           estetica (solarpunk + libretto prop_quartini / Rituale)
+  app.js              flusso, testi delle tappe, suoni, vibrazioni
+  assets/fonts/       Canela, Canela Condensed, Source Sans 3 (incluso: funziona anche offline)
+  assets/img/         glifi del Rituale + illustrazione del Limonium
+
+FLUSSO
+  Attivazione (tieni premuto il cerchio)
+  → Introduzione → Storia della fine → Il fattore terreno → La tua pianta → Il rituale
+  → per ogni tappa: Tappa ("Sono arrivato") → Rito (5 gesti a tempo)
+  → Benvenuto tra i custodi + Annotazioni
+
+NAVIGAZIONE (pensata per il pollice, stile One UI / Samsung Health)
+  - Barra in basso: pulsante tondo "indietro" + pulsante principale che dice sempre cosa fa
+    (Avanti: <pagina>, Sono arrivato, Inizia il rito, Gesto successivo, Ripeti il rito).
+  - "Indice" in alto a destra: pannello dal basso con tutte le pagine e lo stato delle tappe.
+  - Swipe a destra/sinistra sulle pagine di lettura; funziona anche il tasto indietro del telefono.
+  I progressi restano salvati sul telefono.
+
+INDIRIZZI DELLE PAGINE (utili per QR o link diretti, dopo l'attivazione)
+  #intro  #storia  #terreno  #pianta  #rituale  #t1..#t4 (cammino)  #r1..#r4 (rito)  #fine
+
+COLORI
+  In app.js, oggetto PAL: i gradienti di sfondo di ogni pagina (solo viola, verdi, beige/crema, giallo pallido, nero).
+
+MODIFICARE I TESTI / LE DURATE
+  In app.js, in cima, l'elenco TAPPE (e SOIL_STAGES per il terreno): per ogni gesto "dur" = secondi.
+
+PROVARLO IN LOCALE
+  Aprire index.html con un browser, oppure (meglio) da questa cartella:  python -m http.server
+  e visitare http://localhost:8000
+
+METTERLO ONLINE (serve un indirizzo https per il QR)
+  - Netlify Drop: trascinare la cartella su https://app.netlify.com/drop
+  - oppure GitHub Pages (repository → Settings → Pages)
+  Poi generare il QR con l'indirizzo ottenuto.
+
+INDIRIZZI UTILI
+  .../?reset      ricomincia da zero (per chi prova l'allestimento più volte sullo stesso telefono)
+  .../?tappa=2    se metti un QR anche su ogni stazione, apre direttamente il rito di quella tappa
+                  (solo se è la tappa a cui il visitatore deve arrivare)

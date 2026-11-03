@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
+  <meta name="theme-color" content="#FAF6EC">
+  <meta name="description" content="Radicamento — il rito del custode. Parco Regina, Augusta 2076.">
+  <title>Radicamento</title>
+  <link rel="preload" href="assets/fonts/source-sans-3-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/canela-light-italic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- icone -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-back" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-next" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+      <symbol id="i-index" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></symbol>
+      <symbol id="i-stop" viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10" rx="2" fill="currentColor"/></symbol>
+      <symbol id="i-dots" viewBox="0 0 24 24"><g fill="currentColor"><circle cx="12" cy="3.5" r="1.4"/><circle cx="18" cy="6" r="1.4"/><circle cx="20.5" cy="12" r="1.4"/><circle cx="18" cy="18" r="1.4"/><circle cx="12" cy="20.5" r="1.4"/><circle cx="6" cy="18" r="1.4"/><circle cx="3.5" cy="12" r="1.4"/><circle cx="6" cy="6" r="1.4"/></g></symbol>
+      <symbol id="i-clock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></g></symbol>
+      <symbol id="i-layers" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8c3-2 6-2 9 0s6 2 9 0"/><path d="M3 13c3-2 6-2 9 0s6 2 9 0"/><path d="M3 18c3-2 6-2 9 0s6 2 9 0"/></g></symbol>
+      <symbol id="i-leaf" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19C5 10 10 5 20 4c0 10-5 15-14 15"/><path d="M5 19l8-8"/></g></symbol>
+      <symbol id="i-rite" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4"/></g></symbol>
+      <symbol id="i-pen" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13 7l4 4"/></g></symbol>
+      <symbol id="i-redo" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 1 0 2.5-5.8"/><path d="M4 4v5h5"/></g></symbol>
+    </defs>
+  </svg>
+
+  <!-- ===== ATMOSFERA ===== -->
+  <canvas id="sky" aria-hidden="true"></canvas>
+  <div class="sun" aria-hidden="true"><div class="rays"></div><div class="disc"></div></div>
+  <div class="pollen" id="pollen" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- ===== BARRA SUPERIORE ===== -->
+  <header class="appbar" id="appbar">
+    <span class="appbar-title" id="barTitle">Radicamento</span>
+    <div class="appbar-actions">
+      <button class="icon-btn" id="soundBtn" aria-label="Disattiva il suono" aria-pressed="true">
+        <span class="sound-wave"><i></i><i></i><i></i><i></i></span>
+      </button>
+      <button class="pill-btn" id="menuBtn" aria-haspopup="dialog" aria-controls="sheet">
+        <svg class="ico"><use href="#i-index"/></svg><span>Indice</span>
+      </button>
+    </div>
+  </header>
+
+  <main id="app">
+
+    <!-- ===================== ATTIVAZIONE ===================== -->
+    <section class="screen screen--attiva" data-screen="attiva">
+      <div class="attiva-head">
+        <p class="cover-kicker">Parco Regina, quadrante XC9-a</p>
+        <h1 class="cover-title">Radicamento</h1>
+        <p class="cover-year">Augusta 2076</p>
+      </div>
+      <button class="sigil" id="sigil" aria-label="Tieni premuto per attivare il dispositivo">
+        <span class="sigil-glow"></span>
+        <svg viewBox="0 0 200 200" aria-hidden="true"><g id="sigilDots"></g></svg>
+      </button>
+      <div class="attiva-foot">
+        <p class="hint" id="sigilHint">Tieni premuto il cerchio<br>per attivare il dispositivo</p>
+        <p class="small">Meglio con le cuffie. Dura circa 15 minuti.</p>
+      </div>
+    </section>
+
+    <!-- ===================== INTRODUZIONE ===================== -->
+    <section class="screen" data-screen="intro" data-title="Introduzione">
+      <div class="page">
+        <header class="page-head">
+          <h2 class="page-title">Introduzione</h2>
+          <p class="page-sub">Il quadrante XC9-a è tuo</p>
+        </header>
+        <div class="card prose">
+          <p>Ti è stato affidato il quadrante <mark>XC9-a</mark> del Parco Regina. Questo dispositivo ti aiuterà a creare un rapporto simbiotico con esso.</p>
+          <p>Da quando sei arrivato, la tua pianta ha iniziato a produrre un suono. Con il tempo imparerai ad ascoltarlo e a capirlo.</p>
+        </div>
+        <blockquote class="quote">A qualsiasi livello, dal microscopico al macroscopico, sono le comunità intese come relazioni fra viventi che permettono la persistenza della vita.</blockquote>
+      </div>
+    </section>
+
+    <!-- ===================== STORIA DELLA FINE ===================== -->
+    <section class="screen" data-screen="storia" data-title="Storia della fine" id="storiaScreen">
+      <div class="page">
+        <header class="page-head">
+          <h2 class="page-title">Storia della fine</h2>
+          <p class="page-sub">Augusta, dal 2027 al 2075</p>
+        </header>
+        <div class="card prose">
+          <p>La vecchia Augusta era una città sacrificata e ammalorata. Scorri per vedere come è rinata.</p>
+        </div>
+        <ol class="timeline" id="timeline">
+          <li class="card">
+            <span class="tl-year">2027</span>
+            <h3 class="tl-name">L’abbandono</h3>
+            <p>L’estate più calda mai registrata. Gli impianti petrolchimici cedono e i composti tossici raggiungono la falda. La bonifica viene abbandonata.</p>
+          </li>
+          <li class="card">
+            <span class="tl-year">2035</span>
+            <h3 class="tl-name">I primi semi</h3>
+            <p>Una nuova generazione occupa le terre dell’ex ferrovia. Capisce che da quel luogo dipende la vita della città.</p>
+          </li>
+          <li class="card">
+            <span class="tl-year">2050</span>
+            <h3 class="tl-name">La rivolta verde</h3>
+            <p>Augusta si dichiara indipendente. Distese di piantagioni la proteggono. Nessun capo, nessun ordine: tutto nasce come un germoglio dal cemento.</p>
+          </li>
+          <li class="card">
+            <span class="tl-year">2075</span>
+            <h3 class="tl-name">La nascita del parco</h3>
+            <p>Sulle rovine industriali nasce il Parco Regina. Oltre centocinquanta specie filtrano il calore e trattengono l’umidità.</p>
+            <p class="tl-coda">Senza di loro, Augusta non esisterebbe più.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===================== IL FATTORE TERRENO ===================== -->
+    <section class="screen" data-screen="terreno" data-title="Il fattore terreno">
+      <div class="page">
+        <header class="page-head">
+          <h2 class="page-title">Il fattore terreno</h2>
+          <p class="page-sub">Cinquant’anni sotto il Parco</p>
+        </header>
+        <div class="card prose">
+          <p>Il suolo è la memoria della città: trattiene ciò che gli è stato versato sopra. A risanarlo sono le radici, stagione dopo stagione.</p>
+        </div>
+
+        <figure class="card soil" id="soil">
+          <div class="soil-head">
+            <span class="soil-year" id="soilYear">2027</span>
+            <span class="soil-stage" id="soilStage">La ferita</span>
+          </div>
+          <svg class="soil-svg" id="soilSvg" viewBox="0 0 320 250" role="img" aria-label="Spaccato del suolo sotto il Parco Regina">
+            <defs>
+              <linearGradient id="gTop" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D9CBAE"/><stop offset="1" stop-color="#B8A586"/></linearGradient>
+              <linearGradient id="gSub" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9E8F78"/><stop offset="1" stop-color="#6E6458"/></linearGradient>
+              <linearGradient id="gWater" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9373B1"/><stop offset="1" stop-color="#5A4470"/></linearGradient>
+            </defs>
+            <rect x="0" y="52" width="320" height="56" fill="url(#gTop)"/>
+            <rect x="0" y="106" width="320" height="82" fill="url(#gSub)"/>
+            <path d="M0 188 Q40 182 80 188 T160 188 T240 188 T320 188 V250 H0Z" fill="url(#gWater)"/>
+            <path d="M0 52 Q60 47 120 52 T240 51 T320 52" fill="none" stroke="#6E6458" stroke-width="1"/>
+            <g id="soilToxic"></g>
+            <g id="soilRoots" fill="none" stroke-linecap="round"></g>
+            <g id="soilSeq"></g>
+            <g id="soilPlants"></g>
+            <text x="10" y="70" class="soil-lbl">Suolo</text>
+            <text x="10" y="124" class="soil-lbl">Sottosuolo</text>
+            <text x="10" y="206" class="soil-lbl">Falda</text>
+          </svg>
+          <label class="soil-label" for="soilRange">Trascina per attraversare gli anni</label>
+          <input type="range" class="soil-range" id="soilRange" min="2027" max="2076" step="1" value="2027">
+          <div class="soil-scale" aria-hidden="true"><span>2027</span><span>2076</span></div>
+          <p class="soil-text" id="soilText" aria-live="polite"></p>
+        </figure>
+
+        <div class="tiles">
+          <div class="tile"><span class="tile-lbl">Metalli liberi</span><span class="meter"><i id="mToxic"></i></span></div>
+          <div class="tile"><span class="tile-lbl">Radici</span><span class="meter meter--v"><i id="mRoots"></i></span></div>
+          <div class="tile"><span class="tile-lbl">Specie</span><span class="tile-num" id="mSpecies">0</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== LA TUA PIANTA ===================== -->
+    <section class="screen" data-screen="pianta" data-title="La tua pianta">
+      <div class="page">
+        <header class="page-head">
+          <h2 class="page-title">La tua pianta</h2>
+          <p class="page-sub">Limonium narbonense Miller, 1768</p>
+        </header>
+        <div class="card plant-card">
+          <div class="plant-halo"><img src="assets/img/limonium.png" alt="Illustrazione botanica del Limonium narbonense, la statice selvatica" class="plant-img" width="677" height="1072"></div>
+        </div>
+        <dl class="card list facts">
+          <div><dt>Nome comune</dt><dd>Statice selvatica</dd></div>
+          <div><dt>Famiglia</dt><dd>Plumbaginaceae</dd></div>
+          <div><dt>Habitat</dt><dd>Coste salmastre del Mediterraneo</dd></div>
+          <div><dt>Carattere</dt><dd>Resiste a sale e siccità</dd></div>
+        </dl>
+        <div class="card prose">
+          <p>Questa è la pianta che ti è stata assegnata. Con il tempo imparerai a leggere ogni sua necessità e a entrare in simbiosi con lei.</p>
+        </div>
+
+        <h3 class="section-head">Ascolta la pianta</h3>
+        <ul class="card list voices">
+          <li><button class="voice" data-voice="low"><span class="v-btn"><svg class="ico"><use href="#i-play"/></svg></span><span class="v-txt"><b>Basso e continuo</b><span>Sta assorbendo i metalli</span></span></button></li>
+          <li><button class="voice" data-voice="stress"><span class="v-btn"><svg class="ico"><use href="#i-play"/></svg></span><span class="v-txt"><b>Intermittente e acuto</b><span>Soffre la sete</span></span></button></li>
+          <li><button class="voice" data-voice="harmonic"><span class="v-btn"><svg class="ico"><use href="#i-play"/></svg></span><span class="v-txt"><b>Armonico</b><span>È in equilibrio e bonifica il suolo</span></span></button></li>
+        </ul>
+        <p class="coda">Quando il tuo Limonium fiorirà per la prima volta, la terra sotto di lui starà tornando a respirare.</p>
+      </div>
+    </section>
+
+    <!-- ===================== IL RITUALE ===================== -->
+    <section class="screen" data-screen="rituale" data-title="Il rituale">
+      <div class="page">
+        <header class="page-head">
+          <h2 class="page-title">Il rituale</h2>
+          <p class="page-sub">Quattro tappe, una dopo l’altra</p>
+        </header>
+        <div class="card prose">
+          <p>L’osservatorio è un luogo di ascolto e pazienza. In ogni tappa ti fermi e segui i gesti sullo schermo.</p>
+        </div>
+        <ol class="rite-list" id="riteList"></ol>
+      </div>
+    </section>
+
+    <!-- ===================== CAMMINO ===================== -->
+    <section class="screen screen--center" data-screen="cammino" data-title="Verso la tappa">
+      <div class="toast" id="doneToast" hidden>
+        <span class="toast-ico"><svg class="ico"><use href="#i-check"/></svg></span>
+        <span><b id="toastTitle">Tappa 1 completata</b><span id="toastSub">Hai respirato con lei</span></span>
+      </div>
+      <p class="kicker" id="camminoKicker">Tappa 1 di 4</p>
+      <div class="halo-glyph">
+        <span class="halo"></span>
+        <img class="glyph glyph--float" id="camminoGlyph" src="assets/img/glifo-respira.png" alt="">
+      </div>
+      <h2 class="station-name" id="camminoName">Respira</h2>
+      <p class="station-lead"><b>Cerca questo segno nello spazio.</b><br><span id="camminoLead"></span></p>
+      <ol class="stem" id="camminoStem" aria-label="Le quattro tappe"></ol>
+    </section>
+
+    <!-- ===================== RITO ===================== -->
+    <section class="screen screen--center screen--rito" data-screen="rito" data-title="Il rito">
+      <p class="kicker" id="ritoKicker">Tappa 1 di 4</p>
+      <div class="orb-wrap">
+        <svg class="ring" viewBox="0 0 220 220" aria-hidden="true">
+          <circle class="ring-bg" cx="110" cy="110" r="104"/>
+          <circle class="ring-fg" id="ringFg" cx="110" cy="110" r="104" pathLength="1"/>
+        </svg>
+        <div class="orb-core" id="orbCore">
+          <span class="orb"></span>
+          <img class="glyph orb-glyph" id="ritoGlyph" src="assets/img/glifo-respira.png" alt="">
+        </div>
+      </div>
+
+      <div class="rito-ready" id="ritoReady">
+        <h2 class="station-name" id="ritoTitle">Respira</h2>
+        <p class="station-lead" id="ritoIntro"></p>
+        <div class="chips" id="ritoChips"></div>
+      </div>
+
+      <div class="rito-run" id="ritoRun" aria-live="polite">
+        <div class="gesture" id="gesture">
+          <p class="g-line" id="gLine"></p>
+          <p class="g-sub" id="gSub"></p>
+        </div>
+        <button class="press" id="pressPad" hidden><span>Tieni premuto</span></button>
+        <div class="g-dots" id="gDots" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <!-- ===================== FINE ===================== -->
+    <section class="screen" data-screen="fine" data-title="Benvenuto tra i custodi">
+      <div class="page">
+        <header class="page-head page-head--center">
+          <span class="dotring" aria-hidden="true"></span>
+          <h2 class="page-title">Benvenuto tra i custodi</h2>
+          <p class="page-sub" id="fineSub">Il rito è compiuto</p>
+        </header>
+        <div class="card prose">
+          <p>Un suolo inquinato per decenni non si risana in mesi: ogni visita è un contributo. Misura in stagioni, non in giorni.</p>
+          <p>Guardando la tua pianta vedrai che la vita trova sempre una strada. E forse imparerai qualcosa su te stesso: resistere, adattarti, radicare.</p>
+          <p class="welcome">Il futuro inizia da qui.</p>
+          <p class="signature">Il collettivo verde<br>31 dicembre 2075</p>
+        </div>
+
+        <h3 class="section-head" id="annotazioni">Le tue annotazioni</h3>
+        <div class="card notes">
+          <label class="note"><span>Chiedi alla pianta</span><textarea data-note="pianta" rows="2" placeholder="Scrivi qui…"></textarea></label>
+          <label class="note"><span>Chiedi al suolo</span><textarea data-note="suolo" rows="2" placeholder="Scrivi qui…"></textarea></label>
+          <label class="note"><span>Chiedi a te stesso</span><textarea data-note="se" rows="2" placeholder="Scrivi qui…"></textarea></label>
+          <p class="small">Restano salvate solo su questo telefono.</p>
+        </div>
+
+        <p class="credits">Radicamento è un progetto di Speculative design del corso di Progettazione grafica per il territorio, Accademia di Belle Arti di Catania, a cura di Marco Lo Curzio ed Elisa Raciti. Progetto di Fabio Finocchiaro e Roberta Trapani.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== BARRA DI NAVIGAZIONE (zona del pollice) ===== -->
+  <nav class="dock" id="dock" aria-label="Navigazione">
+    <div class="trail" aria-hidden="true"><span id="trailFill"></span></div>
+    <button class="dock-back" id="backBtn" aria-label="Indietro">
+      <svg class="ico"><use id="backIco" href="#i-back"/></svg>
+    </button>
+    <button class="dock-main" id="mainBtn">
+      <span class="dm-txt"><span class="dm-small" id="mainSmall">Avanti</span><span class="dm-big" id="mainBig">Storia della fine</span></span>
+      <svg class="ico"><use href="#i-next"/></svg>
+    </button>
+  </nav>
+
+  <!-- ===== INDICE (pannello dal basso) ===== -->
+  <div class="scrim" id="scrim" hidden></div>
+  <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle" aria-hidden="true">
+    <div class="sheet-grab" id="sheetGrab"><span></span></div>
+    <div class="sheet-head">
+      <h2 id="sheetTitle">Indice</h2>
+      <button class="icon-btn icon-btn--dark" id="sheetClose" aria-label="Chiudi l’indice"><svg class="ico"><use href="#i-close"/></svg></button>
+    </div>
+    <div class="sheet-body">
+      <p class="group-head">Il quaderno</p>
+      <ul class="group">
+        <li><a href="#intro" data-go="intro"><span class="g-ico"><svg class="ico"><use href="#i-dots"/></svg></span><span class="g-txt"><b>Introduzione</b><span>Il quadrante XC9-a</span></span><svg class="ico chev"><use href="#i-next"/></svg></a></li>
+        <li><a href="#storia" data-go="storia"><span class="g-ico"><svg class="ico"><use href="#i-clock"/></svg></span><span class="g-txt"><b>Storia della fine</b><span>Augusta, 2027–2075</span></span><svg class="ico chev"><use href="#i-next"/></svg></a></li>
+        <li><a href="#terreno" data-go="terreno"><span class="g-ico"><svg class="ico"><use href="#i-layers"/></svg></span><span class="g-txt"><b>Il fattore terreno</b><span>Cinquant’anni di suolo</span></span><svg class="ico chev"><use href="#i-next"/></svg></a></li>
+        <li><a href="#pianta" data-go="pianta"><span class="g-ico"><svg class="ico"><use href="#i-leaf"/></svg></span><span class="g-txt"><b>La tua pianta</b><span>Limonium narbonense</span></span><svg class="ico chev"><use href="#i-next"/></svg></a></li>
+      </ul>
+
+      <p class="group-head">Il rituale</p>
+      <ul class="group" id="sheetRite">
+        <li><a href="#rituale" data-go="rituale"><span class="g-ico"><svg class="ico"><use href="#i-rite"/></svg></span><span class="g-txt"><b>Come funziona</b><span>Quattro tappe</span></span><svg class="ico chev"><use href="#i-next"/></svg></a></li>
+      </ul>
+
+      <ul class="group">
+        <li><a href="#fine" data-go="fine" data-anchor="annotazioni"><span class="g-ico"><svg class="ico"><use href="#i-pen"/></svg></span><span class="g-txt"><b>Annotazioni</b><span>Le tue domande</span></span><svg class="ico chev"><use href="#i-next"/></svg></a></li>
+        <li><button id="resetBtn"><span class="g-ico"><svg class="ico"><use href="#i-redo"/></svg></span><span class="g-txt"><b>Ricomincia da capo</b><span>Azzera tappe e annotazioni</span></span></button></li>
+      </ul>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
