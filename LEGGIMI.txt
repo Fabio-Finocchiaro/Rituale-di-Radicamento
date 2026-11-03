@@ -5,7 +5,7 @@ STRUTTURA
   style.css           estetica (solarpunk + libretto prop_quartini / Rituale)
   app.js              flusso, testi delle tappe, suoni, vibrazioni
   assets/fonts/       Canela, Canela Condensed, Source Sans 3 (incluso: funziona anche offline)
-  assets/img/         glifi del Rituale + illustrazione del Limonium
+  assets/img/         glifi del Rituale + illustrazione del cappero
 
 FLUSSO
   Attivazione (tieni premuto il cerchio)
